@@ -1,0 +1,373 @@
+@charset "utf-8";
+
+/* style-layout em organize_projeto */
+
+/* 1. Variáveis Padrão (Light Mode) */
+:root {
+    --bg: #f6f6f7;
+    --card: #ffffff;
+    --muted: #6b6b6b;
+    --accent: #111111;
+    --radius: 18px;
+    --gap: 20px;
+    --maxw: 1200px;
+    --shadow: 0 12px 30px rgba(16, 16, 16, 0.06);
+    --border-color: rgba(0, 0, 0, 0.06);
+}
+
+/* 2. Variáveis Dark Mode - Aplica-se se o sistema for Dark Mode OU se a classe .dark-mode estiver no body */
+@media (prefers-color-scheme: dark), body.dark-mode {
+    :root {
+        --bg: #1c1c1c;
+        --card: #282828;
+        --muted: #b0b0b0;
+        --accent: #ffffff;
+        --shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+        --border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    body {
+        background: var(--bg);
+    }
+
+    .container {
+        background: var(--card);
+        box-shadow: var(--shadow);
+    }
+
+    /* === ESTILO PARA LOGOS NO DARK MODE (CORRETO) === */
+    .brand-logo {
+        filter: invert(1) grayscale(1) brightness(1.8) !important;
+    }
+    /* ========================================= */
+
+    .media {
+        background: #111111;
+    }
+}
+
+/* Estilos Globais */
+* {
+    box-sizing: border-box
+}
+
+html,
+body {
+    height: 100%
+}
+
+body {
+    margin: 0;
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background: linear-gradient(180deg, #ffffff 0%, var(--bg) 100%);
+    color: var(--accent);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+    max-width: var(--maxw);
+    margin: 36px auto;
+    padding: 28px;
+    border-radius: 22px;
+    background: var(--card);
+    box-shadow: var(--shadow);
+}
+
+/* --- CORREÇÃO DO HEADER --- */
+.site-header {
+    display: grid; 
+    /* Coluna para os logos (1fr) e coluna para nav/botão (auto) */
+    grid-template-columns: 1fr auto; 
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.logo-row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Alinha os logos à esquerda */
+    gap: 20px;
+}
+
+.brand-logo {
+    /* Altura definida para um tamanho mais adequado ao cabeçalho (desktop) */
+    height: 30px; 
+    width: auto;
+    object-fit: contain;
+    border-radius: 0;
+    background: transparent;
+    transition: filter 0.3s ease; /* Adiciona transição para o filtro no dark mode */
+}
+
+/* Novo: Agrupamento da Navegação e Botão (Adicionado no HTML anterior) */
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+/* -------------------------- */
+
+/* Estilos do Botão de Alternar Tema */
+.dark-btn {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--accent);
+    padding: 8px 12px;
+    border-radius: 50%;
+    font-size: 20px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    line-height: 1;
+    outline: none;
+}
+
+.dark-btn:hover {
+    background: var(--bg);
+}
+
+/* Navegação e Hero (Mantido) */
+.nav {
+    display: flex;
+    gap: 18px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--muted);
+    font-weight: 700;
+    letter-spacing: 0.8px;
+}
+
+.hero {
+    text-align: center;
+    padding: 26px 8px 10px;
+}
+
+.hero h1 {
+    font-size: 44px;
+    margin: 4px 0 8px;
+    letter-spacing: 2px;
+}
+
+.lead {
+    margin: 0;
+    color: var(--muted);
+}
+
+/* controls, filters, chips, search (Mantido) */
+.controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 20px 0 6px;
+    flex-wrap: wrap;
+    padding: 0 20px;
+}
+
+.filters {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.chip {
+    padding: 10px 14px;
+    border-radius: 999px;
+    border: 1px solid var(--border-color);
+    background: transparent;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--accent);
+    outline: none;
+}
+
+.chip.active {
+    background: var(--accent);
+    color: var(--card);
+    border: none;
+}
+
+.search-wrap input {
+    padding: 10px 14px;
+    border-radius: 999px; 
+    border: 1px solid var(--border-color);
+    min-width: 200px;
+    background: var(--card);
+    color: var(--accent);
+}
+
+.search-wrap input::placeholder {
+    color: var(--muted);
+}
+
+/* grid e card (Mantido) */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: var(--gap);
+    margin-top: 12px;
+}
+
+.card {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 18px;
+    text-align: center;
+    box-shadow: 0 8px 22px rgba(10, 10, 10, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+    transition: transform .18s ease, box-shadow .18s ease;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 36px rgba(10, 10, 10, 0.08);
+}
+
+.media {
+    width: 100%;
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    overflow: hidden;
+    background: linear-gradient(180deg, #fafafa, #fff);
+}
+
+.media img {
+    max-width: 86%;
+    max-height: 160px;
+    object-fit: contain;
+    filter: none;
+}
+
+.card h3 {
+    margin: 0;
+    font-size: 16px;
+}
+
+.brand-tag {
+    color: var(--muted);
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 0.8px;
+}
+
+.price {
+    font-weight: 800;
+    font-size: 18px;
+}
+
+.card .actions {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+    justify-content: center;
+    margin-top: 6px;
+}
+
+.btn {
+    padding: 9px 14px;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    background: transparent;
+    cursor: pointer;
+    font-weight: 700;
+    color: var(--accent);
+    outline: none;
+}
+
+.btn.primary {
+    background: var(--accent);
+    color: var(--card);
+    border: none;
+}
+
+/* modal (Mantido) */
+.modal-backdrop {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 60;
+    padding: 20px;
+}
+
+.modal {
+    width: min(900px, 96%);
+    background: var(--card);
+    border-radius: 14px;
+    padding: 18px;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+}
+
+.modal-close {
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    position: absolute;
+    right: 28px;
+    top: 28px;
+}
+
+.modal-body {
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+}
+
+.modal-body img {
+    width: 48%;
+    border-radius: 12px;
+    object-fit: contain;
+}
+
+.modal-info {
+    flex: 1;
+}
+
+.modal-price {
+    font-weight: 900;
+    font-size: 22px;
+    margin-top: 6px;
+}
+
+/* footer (Mantido) */
+.site-footer {
+    text-align: center;
+    color: var(--muted);
+    margin-top: 40px;
+    font-size: 13px;
+}
+
+/* dropdown (Mantido) */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background: var(--card);
+    border: 1px solid var(--border-color);
+    padding: 8px 0;
+    border-radius: 6px;
+    min-width: 150px;
+    z-index: 10;
+}
+
+.dropdown-menu button {
+    display: block;
+    width: 10
